@@ -1,0 +1,115 @@
+.movie-list {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+a,
+.link {
+  text-decoration: none;
+  text-decoration: #e91e63;
+}
+a,
+.link:visited {
+  color: #e91e63;
+}
+a,
+.link:link {
+  color: #e91e63;
+}
+
+.show-list {
+  text-align: center;
+}
+
+.zoom-in:hover {
+  transform: scale(1.5);
+  transition-duration: 0.5s;
+  z-index: 2;
+}
+.movie {
+  width: 700px;
+  margin: auto;
+  margin-top: 100px;
+  border-radius: 10px;
+}
+
+.img-rating {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  align-items: center;
+}
+.title-description {
+  text-align: center;
+  margin-left: 15px;
+  float: right;
+}
+.seasons {
+  width: 700px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  align-content: flex-start;
+}
+
+.episodes {
+  display: flex;
+
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.episode {
+  text-align: center;
+}
+
+.search-show_enter {
+  display: flex;
+}
+.logo {
+  font-family: 'Bubblegum Sans', cursive;
+  font-size: 50px;
+  margin-left: 55px;
+}
+.my-list {
+  display: flex;
+  justify-content: baseline;
+}
+.delete-icon {
+  color: red;
+  font-size: 50px;
+  margin-bottom: -5px;
+}
+.no-image {
+  height: '295px';
+  width: '310px';
+}
+input {
+  height: 40px;
+  font-size: 25px;
+  margin: 10px 0px 10px 0px;
+}
+
+.logs {
+  margin: auto;
+  max-width: 500px;
+  padding: 30px 0px 30px 0px;
+  color: white;
+}
+.my-tv-shows {
+  font-family: 'Hind';
+  font-size: '63px';
+  margin-top: '0px';
+}
+
+.genre {
+  font-size: 70px;
+  text-align: center;
+  font-weight: 100;
+  color: #e91e63;
+  font-family: 'Hanalei Fill', cursive;
+}
