@@ -13,7 +13,7 @@ const Episodes = ({ match }) => {
   async function fetchData(id) {
     setLoading(true);
     try {
-      const res = await fetch(`http://api.tvmaze.com/seasons/${id}/episodes`);
+      const res = await fetch(`https://api.tvmaze.com/seasons/${id}/episodes`);
       if (!res.ok) {
         setError(true);
 
