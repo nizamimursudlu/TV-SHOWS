@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { v4 as uuid_v4 } from 'uuid';
 import ErrorMessage from '../components/ErrorMessage';
 import Episode from '../components/Episode';
-import NavbarNoSearch from '../components/NavbarNoSearch';
-import { Typography, CircularProgress } from '@material-ui/core';
+import Navbar from '../components/Navbar';
+import { Typography, CircularProgress, Box } from '@material-ui/core';
 
 const Episodes = ({ match }) => {
   const [episodes, setEpisodes] = useState();
@@ -33,22 +33,23 @@ const Episodes = ({ match }) => {
 
   return (
     <div>
-      <NavbarNoSearch />
+      <Navbar />
       {error && <ErrorMessage error={error}></ErrorMessage>}
       {loading ? (
         <CircularProgress />
       ) : (
         <div>
-          <Typography
-            color="primary"
-            component="h1"
-            variant="h3"
-            align="center"
-            margin="normal"
-            className="genre"
-          >
-            Season {episodes && episodes[0].season}
-          </Typography>
+          <Box margin={3}>
+            <Typography
+              color="primary"
+              component="h1"
+              variant="h2"
+              align="center"
+              className="genre"
+            >
+              Season: {episodes && episodes[0].season}
+            </Typography>
+          </Box>
 
           <div className="episodes">
             {episodes &&

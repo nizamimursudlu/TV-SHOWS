@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 
-function SearchShow({ fetchData }) {
+function SearchShow({ setShows }) {
   const [searchShow, setSearchShow] = useState();
 
   const handleEnterKey = (e) => {
@@ -18,6 +18,20 @@ function SearchShow({ fetchData }) {
 
     fetchData({ searchShow });
   };
+  async function fetchData({ searchShow }) {
+    try {
+      const response = await fetch(
+        `https://api.tvmaze.com/search/shows?q=${searchShow}`,
+      );
+      if (!response.ok) {
+        throw Error;
+      }
+      const data = await response.json();
+      setShows(data);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   return (
     <div className="search-show_enter">

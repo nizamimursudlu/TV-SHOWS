@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CardMedia, Paper, CardActions, Card } from '@material-ui/core';
 import noImage from '../noImage.png';
-
 import { v4 as uuid_v4 } from 'uuid';
 
 const DisplayCategory = ({ show }) => {

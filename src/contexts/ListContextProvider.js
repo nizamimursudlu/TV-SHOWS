@@ -122,9 +122,10 @@ const Context = createContext();
 
 const ListContextProvider = ({ children }) => {
   const [myList, setMyList] = useState(initialPlayList);
+  const [showSearch, setShowSearch] = useState(true);
 
   return (
-    <Context.Provider value={{ myList, setMyList }}>
+    <Context.Provider value={{ myList, setMyList, showSearch, setShowSearch }}>
       {children}
     </Context.Provider>
   );

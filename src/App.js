@@ -8,7 +8,6 @@ import PrivateRoute from './components/PrivetRoute';
 import login from './pages/login';
 import signup from './pages/signup';
 import forgotPassword from './pages/forgotPassword';
-import notFound from './pages/notFound';
 import home from './pages/home';
 import show from './pages/show';
 import episodes from './pages/episodes';
@@ -31,11 +30,11 @@ function App() {
           <AuthProvider>
             <Switch>
               <ListContextProvider>
+                {/* <Navbar /> */}
                 <Route path="/signup" component={signup} />
                 <Route path="/login" component={login} />
                 <Route path="/forgot-password" component={forgotPassword} />
                 <PrivateRoute exact path="/" component={home} />
-                <Route exact path="/notfound" component={notFound} />
                 <Route exact path="/:name/:id" component={show} />
                 <Route exact path="/:name/:id/episodes" component={episodes} />
               </ListContextProvider>

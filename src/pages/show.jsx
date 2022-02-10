@@ -8,14 +8,15 @@ import CheckIcon from '@material-ui/icons/Check';
 import { Paper, Card, CircularProgress, Typography } from '@material-ui/core';
 import ErrorMessage from '../components/ErrorMessage';
 import Seasons from '../components/Seasons';
-import NavbarNoSearch from '../components/NavbarNoSearch';
+import Navbar from '../components/Navbar';
 
 const Show = ({ match }) => {
   const [show, setData] = useState();
   const [seasons, setSeasons] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const { myList, setMyList } = useListContext();
+  const { myList, setMyList, showSearch, setShowSearch } = useListContext();
+  setShowSearch(false);
 
   const getFilmData = async (url, setFunction) => {
     setLoading(true);
@@ -59,6 +60,7 @@ const Show = ({ match }) => {
               float: 'right',
               marginRight: '20px',
               marginTop: '-65px',
+              cursor: 'pointer',
             }}
           />
         )) || (
@@ -78,74 +80,69 @@ const Show = ({ match }) => {
 
   return (
     <div>
-      <div>
-        <div></div>
-        <NavbarNoSearch />
+      <Navbar showSearch={showSearch} />
+      {error && <ErrorMessage error={error}></ErrorMessage>}
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <div>
+          <Paper elevation={3} className="movie">
+            <Card style={{ padding: '15px' }}>
+              {show && (
+                <Typography
+                  gutterBottom
+                  variant="h3"
+                  style={{ textAlign: 'center' }}
+                >
+                  {show.name}
+                </Typography>
+              )}
+              {show && <AddBtn show={show} myList={myList} />}
+              <div style={{ display: 'flex' }}>
+                <div className="img-rating">
+                  {show && show.image !== null ? (
+                    <img alt="" src={show.image.medium} />
+                  ) : (
+                    <img alt="" src={noImage} />
+                  )}
+                  {show && show.rating.average !== null ? (
+                    <h4>Rating: {show.rating.average}</h4>
+                  ) : null}
+                </div>
+                <div className="title-description">
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="h6"
+                  >
+                    {show && (
+                      <p dangerouslySetInnerHTML={{ __html: show.summary }}></p>
+                    )}
+                  </Typography>
+                </div>
+              </div>
+            </Card>
+          </Paper>
+        </div>
+      )}
+      <div className="seasons">
         {error && <ErrorMessage error={error}></ErrorMessage>}
         {loading ? (
           <CircularProgress />
         ) : (
           <div>
-            <Paper elevation={3} className="movie">
-              <Card style={{ padding: '15px' }}>
-                {show && (
-                  <Typography
-                    gutterBottom
-                    variant="h3"
-                    style={{ textAlign: 'center' }}
-                  >
-                    {show.name}
-                  </Typography>
-                )}
-                {show && <AddBtn show={show} myList={myList} />}
-                <div style={{ display: 'flex' }}>
-                  <div className="img-rating">
-                    {show && show.image !== null ? (
-                      <img alt="" src={show.image.medium} />
-                    ) : (
-                      <img alt="" src={noImage} />
-                    )}
-                    {show && show.rating.average !== null ? (
-                      <h4>Rating: {show.rating.average}</h4>
-                    ) : null}
-                  </div>
-                  <div className="title-description">
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="h6"
-                    >
-                      {show && (
-                        <p
-                          dangerouslySetInnerHTML={{ __html: show.summary }}
-                        ></p>
-                      )}
-                    </Typography>
-                  </div>
-                </div>
-              </Card>
-            </Paper>
+            {seasons &&
+              seasons.map((season) => (
+                <Link
+                  to={`/${show && show.name}/${season.id}/episodes`}
+                  key={uuid_v4()}
+                  className="link"
+                >
+                  <Seasons show={show} season={season} key={uuid_v4()} />
+                </Link>
+              ))}
           </div>
         )}
-        <div className="seasons">
-          {error && <ErrorMessage error={error}></ErrorMessage>}
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <div>
-              {seasons &&
-                seasons.map((season) => (
-                  <Link
-                    to={`/${show && show.name}/${season.id}/episodes`}
-                    key={uuid_v4()}
-                    className="link"
-                  >
-                    <Seasons show={show} season={season} key={uuid_v4()} />
-                  </Link>
-                ))}
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );

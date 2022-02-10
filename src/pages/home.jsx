@@ -5,18 +5,18 @@ import { useListContext } from '../contexts/ListContextProvider';
 import DisplayCategory from '../components/DisplayCategory';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MyList from '../components/MyList';
-import { useAuth } from '../contexts/AuthContext';
 import Navbar from '../components/Navbar';
-import { Redirect } from 'react-router-dom';
+import NotFound from '../components/NotFound';
 
 function HomePage() {
   const [shows, setShows] = useState();
-  const { myList, setMyList } = useListContext();
+  const { myList, setMyList, showSearch, setShowSearch } = useListContext();
   const [mostPopular, setMostPopular] = useState();
   const [genres, setGenres] = useState();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const value = useAuth();
+
+  setShowSearch(true);
 
   async function fetchDisplayCategory() {
     setLoading(true);
@@ -48,22 +48,6 @@ function HomePage() {
     fetchDisplayCategory();
   }, []);
 
-  async function fetchData({ searchShow }) {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `https://api.tvmaze.com/search/shows?q=${searchShow}`,
-      );
-      if (!response.ok) {
-        throw Error;
-      }
-      const data = await response.json();
-      setShows(data);
-    } catch (e) {
-      setError('Something went wrong, please try again later');
-      setLoading(false);
-    }
-  }
   function handleDelete(id) {
     let newList = myList.filter((item) => item.id !== id);
     setMyList(newList);
@@ -93,15 +77,13 @@ function HomePage() {
 
   return (
     <div className="App">
-      {value.currentUser && (
-        <Navbar
-          fetchData={fetchData}
-          fetchDisplayCategory={fetchDisplayCategory}
-          setShows={setShows}
-        />
-      )}
+      <Navbar
+        showSearch={showSearch}
+        fetchDisplayCategory={fetchDisplayCategory}
+        setShows={setShows}
+      />
       {error && <ErrorMessage error={error}></ErrorMessage>}
-      {shows && shows.length === 0 && <Redirect to="/notfound" />}
+      {shows && shows.length === 0 && <NotFound />}
       {!shows && (
         <div>
           <h1 className="genre">My List</h1>
